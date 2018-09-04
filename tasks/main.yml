@@ -1,0 +1,8 @@
+---
+- name: Ensure configured homebrew services are started at login.
+  command: "brew services start {{ item }}"
+  register: homebrew_services_result
+  changed_when: "'Successfully started' in homebrew_services_result.stdout"
+  with_items: "{{ homebrew_services }}"
+  become: yes
+  when: homebrew_services is defined
